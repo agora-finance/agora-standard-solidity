@@ -3,6 +3,31 @@ pragma solidity >=0.8.0;
 import { CommonBase } from "forge-std/Base.sol";
 
 contract VmHelper is CommonBase {
+    uint256[] internal snapShotIds;
+    function()[] internal setupFunctions;
+
+    modifier useMultipleSetupFunctions() {
+        if (snapShotIds.length == 0) _;
+        for (uint256 i = 0; i < snapShotIds.length; i++) {
+            uint256 _originalSnapshotId = vm.snapshot();
+            if (!vm.revertTo(snapShotIds[i])) {
+                revert VmDidNotRevert(snapShotIds[i]);
+            }
+            _;
+            vm.clearMockedCalls();
+            vm.revertTo(_originalSnapshotId);
+        }
+    }
+
+    function addSetupFunctions(function()[] memory _setupFunctions) internal {
+        for (uint256 i = 0; i < _setupFunctions.length; i++) {
+            _setupFunctions[i]();
+            snapShotIds.push(vm.snapshot());
+            vm.clearMockedCalls();
+        }
+    }
+
+    error VmDidNotRevert(uint256 _snapshotId);
     struct MineBlocksResult {
         uint256 timeElapsed;
         uint256 blocksElapsed;
@@ -59,6 +84,13 @@ contract VmHelper is CommonBase {
     }
 
     function labelAndDeal(address _address, string memory _label) public returns (address payable) {
+        vm.label(_address, _label);
+        vm.deal(_address, 1_000_000_000);
+        return payable(_address);
+    }
+
+    function labelAndDeal(string memory _label) public returns (address payable) {
+        address _address = address(uint160(uint256(bytes32(bytes(_label)))));
         vm.label(_address, _label);
         vm.deal(_address, 1_000_000_000);
         return payable(_address);
