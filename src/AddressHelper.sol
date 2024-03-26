@@ -31,4 +31,8 @@ library AddressHelper {
     function etherscanLink(address _address) public pure returns (string memory) {
         return toEtherscanLink(_address);
     }
+
+    function toPayable(address _address) public pure returns (address payable) {
+        return payable(_address);
+    }
 }
