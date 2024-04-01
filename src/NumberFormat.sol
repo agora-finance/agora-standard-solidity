@@ -54,4 +54,19 @@ library NumberFormat {
             return string(abi.encodePacked(_integer.toString(), ".", _decimalString, "e", _decimals.toString()));
         }
     }
+
+    function toBinary(uint256 _value) public pure returns (string memory) {
+        bytes memory _binaryString = new bytes(256);
+
+        for (uint256 i = 0; i < 256; i++) {
+            if (_value & 1 == 1) {
+                _binaryString[255 - i] = "1";
+            } else {
+                _binaryString[255 - i] = "0";
+            }
+            _value >>= 1;
+        }
+
+        return string(_binaryString);
+    }
 }
