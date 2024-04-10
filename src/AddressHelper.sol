@@ -24,15 +24,15 @@ import { Strings } from "@openzeppelin/contracts/utils/Strings.sol";
 library AddressHelper {
     using Strings for *;
 
-    function toEtherscanLink(address _address) public pure returns (string memory) {
+    function toEtherscanLink(address _address) internal pure returns (string memory) {
         return string(abi.encodePacked("https://etherscan.io/address/", _address.toHexString()));
     }
 
-    function etherscanLink(address _address) public pure returns (string memory) {
+    function etherscanLink(address _address) internal pure returns (string memory) {
         return toEtherscanLink(_address);
     }
 
-    function toPayable(address _address) public pure returns (address payable) {
+    function toPayable(address _address) internal pure returns (address payable) {
         return payable(_address);
     }
 }
