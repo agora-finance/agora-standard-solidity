@@ -90,7 +90,7 @@ contract VmHelper is CommonBase {
     }
 
     function labelAndDeal(string memory _label) public returns (address payable) {
-        address _address = address(uint160(uint256(bytes32(bytes(_label)))));
+        address _address = address(uint160(uint256(keccak256(bytes(_label)))));
         vm.label(_address, _label);
         vm.deal(_address, 1_000_000_000);
         return payable(_address);
