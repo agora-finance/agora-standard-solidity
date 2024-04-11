@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: ISC
 pragma solidity >=0.8.0;
 
-import "../src/FraxTest.sol";
+import "forge-std/Test.sol";
+import { VmHelper } from "../src/VmHelper.sol";
 
-contract TestMultipleSetup is FraxTest {
+contract TestMultipleSetup is VmHelper, Test {
     uint256 value;
 
     function initializeValueOne() public {

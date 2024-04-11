@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: ISC
 pragma solidity >=0.8.0;
 
-import "../src/FraxTest.sol";
-import "../src/NumberFormat.sol";
+import "forge-std/Test.sol";
+import { NumberFormat } from "../src/NumberFormat.sol";
 
-contract NumberFormatTest is FraxTest {
+contract NumberFormatTest is Test {
     function testToScientific() public {
         uint256 _value = 123456789;
         string memory _expected = "1.23456789e8";

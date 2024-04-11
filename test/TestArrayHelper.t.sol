@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: ISC
 pragma solidity >=0.8.0;
 
-import "../src/FraxTest.sol";
 import { ArrayHelper } from "../src/ArrayHelper.sol";
+import "forge-std/Test.sol";
 
-contract TestArrayHelper is FraxTest {
+contract TestArrayHelper is Test {
     using ArrayHelper for *;
 
     function testConcat() public {
