@@ -1,7 +1,7 @@
 {
-  "name": "frax-standard-solidity",
+  "name": "agora-standard-solidity",
   "version": "1.0.0",
-  "description": "A standard library for frax solidity",
+  "description": "A standard library for agora solidity",
   "main": "src",
   "directories": {
     "lib": "lib",
