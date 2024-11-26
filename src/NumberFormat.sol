@@ -23,7 +23,6 @@ import { StringsHelper } from "./StringsHelper.sol";
 // ====================================================================
 
 library NumberFormat {
-    using Strings for *;
     using StringsHelper for *;
 
     function toDecimal(uint256 _value, uint256 _precision) public pure returns (string memory) {

@@ -35,4 +35,8 @@ library AddressHelper {
     function toPayable(address _address) internal pure returns (address payable) {
         return payable(_address);
     }
+
+    function toString(address _address) internal pure returns (string memory) {
+        return (_address).toChecksumHexString();
+    }
 }

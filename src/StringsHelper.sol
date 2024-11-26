@@ -65,4 +65,12 @@ library StringsHelper {
         }
         return slice(_string, _start, _end + 1);
     }
+
+    function concat(string memory _string1, string memory _string2) public pure returns (string memory) {
+        return string.concat(_string1, _string2);
+    }
+
+    function toString(uint256 _number) public pure returns (string memory) {
+        return Strings.toString(_number);
+    }
 }
