@@ -73,4 +73,11 @@ library StringsHelper {
     function toString(uint256 _number) public pure returns (string memory) {
         return Strings.toString(_number);
     }
+
+    function toString(int256 _number) public pure returns (string memory) {
+        if (_number < 0) {
+            return string.concat("-", Strings.toString(uint256(-_number)));
+        }
+        return Strings.toStringSigned(_number);
+    }
 }
