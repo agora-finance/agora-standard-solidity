@@ -68,4 +68,8 @@ library NumberFormat {
 
         return string(_binaryString);
     }
+
+    function toPrecision(uint256 _precision) public pure returns (uint256) {
+        return bytes(Strings.toString(_precision)).length - 1;
+    }
 }

@@ -60,6 +60,16 @@ library Logger {
         console.log(string(abi.encodePacked(_string, " ", _valueString, "%", " (raw: ", _percent.toString(), ")")));
     }
 
+    function signedPercent(string memory _string, int256 _percent, uint256 _precision) public pure {
+        if (_percent < 0) {
+            string memory _prefix = string(abi.encodePacked(_string, " -"));
+            uint256 _positivePercent = uint256(-_percent);
+            logPercent(_prefix, _positivePercent, _precision);
+        } else {
+            logPercent(_string, uint256(_percent), _precision);
+        }
+    }
+
     function percent(string memory _string, uint256 _percent, uint256 _precision) public pure {
         logPercent(_string, _percent, _precision);
     }
@@ -81,5 +91,12 @@ library Logger {
         console.log(
             string(abi.encodePacked(_string, " ", _address.toHexString(), " (", _address.toEtherscanLink(), ")"))
         );
+    }
+
+    function roles(string memory _string, address[] memory _roles) public pure {
+        console.log(string(abi.encodePacked(_string, " roles (", _roles.length.toString(), ")")));
+        for (uint256 i = 0; i < _roles.length; i++) {
+            console.log("\t-", _roles[i]);
+        }
     }
 }
