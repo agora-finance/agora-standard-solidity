@@ -89,7 +89,16 @@ library Logger {
 
     function addressWithEtherscanLink(string memory _string, address _address) public pure {
         console.log(
-            string(abi.encodePacked(_string, " ", _address.toHexString(), " (", _address.toEtherscanLink(), ")"))
+            string(
+                abi.encodePacked(
+                    _string,
+                    " ",
+                    AddressHelper.toHexString(_address),
+                    " (",
+                    _address.toEtherscanLink(),
+                    ")"
+                )
+            )
         );
     }
 

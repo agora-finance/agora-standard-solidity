@@ -20,6 +20,7 @@ pragma solidity ^0.8.0;
 
 import { console2 as console } from "forge-std/Test.sol";
 import { Strings } from "@openzeppelin/contracts/utils/Strings.sol";
+import { SignedMath } from "@openzeppelin/contracts/utils/math/SignedMath.sol";
 
 library StringsHelper {
     using Strings for *;
@@ -78,6 +79,13 @@ library StringsHelper {
         if (_number < 0) {
             return string.concat("-", Strings.toString(uint256(-_number)));
         }
-        return Strings.toStringSigned(_number);
+        return toStringSigned(_number);
+    }
+
+    /**
+     * @dev Converts a `int256` to its ASCII `string` decimal representation.
+     */
+    function toStringSigned(int256 value) internal pure returns (string memory) {
+        return string.concat(value < 0 ? "-" : "", toString(SignedMath.abs(value)));
     }
 }
