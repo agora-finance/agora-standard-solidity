@@ -91,4 +91,17 @@ library ArrayHelper {
         }
         _newArray[_inputArrayLength] = _newItem;
     }
+
+    function extend(address[] memory _this, address[] memory _that) internal pure returns (address[] memory _newArray) {
+        uint256 _newArrayLength = _this.length + _that.length;
+        _newArray = new address[](_newArrayLength);
+        // loop through the first array
+        for (uint256 i = 0; i < _this.length; i++) {
+            _newArray[i] = _this[i];
+        }
+        // loop through the second array
+        for (uint256 j = 0; j < _that.length; j++) {
+            _newArray[_this.length+j] = _that[j];
+        }
+    }
 }
