@@ -25,14 +25,14 @@ import { StringsHelper } from "./StringsHelper.sol";
 library NumberFormat {
     using StringsHelper for *;
 
-    function toDecimal(uint256 _value, uint256 _precision) public pure returns (string memory) {
+    function toDecimal(uint256 _value, uint256 _precision) internal pure returns (string memory) {
         uint256 _decimals = bytes(Strings.toString(_precision)).length - 1;
         uint256 _integer = _value >= _precision ? _value / _precision : 0;
         string memory _decimalString = (_value - (_integer * _precision)).toString().padLeft("0", _decimals);
         return string(abi.encodePacked(_integer.toString(), ".", _decimalString));
     }
 
-    function toScientific(uint256 _value) public pure returns (string memory) {
+    function toScientific(uint256 _value) internal pure returns (string memory) {
         uint256 _decimals = bytes(Strings.toString(_value)).length - 1;
         uint256 _precision = 10 ** _decimals;
         uint256 _integer = _value >= _precision ? _value / _precision : 0;
@@ -54,7 +54,7 @@ library NumberFormat {
         }
     }
 
-    function toBinary(uint256 _value) public pure returns (string memory) {
+    function toBinary(uint256 _value) internal pure returns (string memory) {
         bytes memory _binaryString = new bytes(256);
 
         for (uint256 i = 0; i < 256; i++) {
@@ -69,7 +69,7 @@ library NumberFormat {
         return string(_binaryString);
     }
 
-    function toPrecision(uint256 _precision) public pure returns (uint256) {
+    function toPrecision(uint256 _precision) internal pure returns (uint256) {
         return bytes(Strings.toString(_precision)).length - 1;
     }
 }

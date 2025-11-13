@@ -25,21 +25,25 @@ import { SignedMath } from "@openzeppelin/contracts/utils/math/SignedMath.sol";
 library StringsHelper {
     using Strings for *;
 
-    function padLeft(string memory _string, string memory _pad, uint256 _length) public pure returns (string memory) {
+    function padLeft(string memory _string, string memory _pad, uint256 _length) internal pure returns (string memory) {
         while (bytes(_string).length < _length) {
             _string = string(abi.encodePacked(_pad, _string));
         }
         return _string;
     }
 
-    function padRight(string memory _string, string memory _pad, uint256 _length) public pure returns (string memory) {
+    function padRight(
+        string memory _string,
+        string memory _pad,
+        uint256 _length
+    ) internal pure returns (string memory) {
         while (bytes(_string).length < _length) {
             _string = string(abi.encodePacked(_string, _pad));
         }
         return _string;
     }
 
-    function slice(string memory _string, uint256 _start, uint256 _end) public pure returns (string memory) {
+    function slice(string memory _string, uint256 _start, uint256 _end) internal pure returns (string memory) {
         bytes memory _stringBytes = bytes(_string);
         bytes memory _result = new bytes(_end - _start);
         for (uint256 i = _start; i < _end; i++) {
@@ -48,7 +52,7 @@ library StringsHelper {
         return string(_result);
     }
 
-    function trim(string memory _string) public pure returns (string memory) {
+    function trim(string memory _string) internal pure returns (string memory) {
         bytes memory _stringBytes = bytes(_string);
         uint256 _start = 0;
         uint256 _end = _stringBytes.length - 1;
@@ -67,15 +71,15 @@ library StringsHelper {
         return slice(_string, _start, _end + 1);
     }
 
-    function concat(string memory _string1, string memory _string2) public pure returns (string memory) {
+    function concat(string memory _string1, string memory _string2) internal pure returns (string memory) {
         return string.concat(_string1, _string2);
     }
 
-    function toString(uint256 _number) public pure returns (string memory) {
+    function toString(uint256 _number) internal pure returns (string memory) {
         return Strings.toString(_number);
     }
 
-    function toString(int256 _number) public pure returns (string memory) {
+    function toString(int256 _number) internal pure returns (string memory) {
         if (_number < 0) {
             return string.concat("-", Strings.toString(uint256(-_number)));
         }
