@@ -32,35 +32,35 @@ library Logger {
     uint64 internal constant ONE_PERCENT = FIFTY_BPS * 2;
     uint64 internal constant ONE_BPS = FIFTY_BPS / 50;
 
-    function logRate(string memory _string, uint256 _rate) public pure {
+    function logRate(string memory _string, uint256 _rate) internal pure {
         console.log(
             string(abi.encodePacked(_string, " BPS: ", (_rate / ONE_BPS).toString(), " (raw: ", _rate.toString(), ")"))
         );
     }
 
-    function rate(string memory _string, uint256 _rate) public pure {
+    function rate(string memory _string, uint256 _rate) internal pure {
         logRate(_string, _rate);
     }
 
-    function logDecimal(string memory _string, uint256 _value, uint256 _precision) public pure {
+    function logDecimal(string memory _string, uint256 _value, uint256 _precision) internal pure {
         string memory _valueString = _value.toDecimal(_precision);
         console.log(string(abi.encodePacked(_string, " ", _valueString, " (raw: ", _value.toString(), ")")));
     }
 
-    function decimal(string memory _string, uint256 _value, uint256 _precision) public pure {
+    function decimal(string memory _string, uint256 _value, uint256 _precision) internal pure {
         logDecimal(_string, _value, _precision);
     }
 
-    function decimal(string memory _string, uint256 _value) public pure {
+    function decimal(string memory _string, uint256 _value) internal pure {
         logDecimal(_string, _value, 1e18);
     }
 
-    function logPercent(string memory _string, uint256 _percent, uint256 _precision) public pure {
+    function logPercent(string memory _string, uint256 _percent, uint256 _precision) internal pure {
         string memory _valueString = (_percent * 100).toDecimal(_precision);
         console.log(string(abi.encodePacked(_string, " ", _valueString, "%", " (raw: ", _percent.toString(), ")")));
     }
 
-    function signedPercent(string memory _string, int256 _percent, uint256 _precision) public pure {
+    function signedPercent(string memory _string, int256 _percent, uint256 _precision) internal pure {
         if (_percent < 0) {
             string memory _prefix = string(abi.encodePacked(_string, " -"));
             uint256 _positivePercent = uint256(-_percent);
@@ -70,24 +70,24 @@ library Logger {
         }
     }
 
-    function percent(string memory _string, uint256 _percent, uint256 _precision) public pure {
+    function percent(string memory _string, uint256 _percent, uint256 _precision) internal pure {
         logPercent(_string, _percent, _precision);
     }
 
-    function percent(string memory _string, uint256 _percent) public pure {
+    function percent(string memory _string, uint256 _percent) internal pure {
         logPercent(_string, _percent, 1e18);
     }
 
-    function logScientific(string memory _string, uint256 _value) public pure {
+    function logScientific(string memory _string, uint256 _value) internal pure {
         string memory _valueString = _value.toScientific();
         console.log(string(abi.encodePacked(_string, " ", _valueString, " (raw: ", _value.toString(), ")")));
     }
 
-    function scientific(string memory _string, uint256 _value) public pure {
+    function scientific(string memory _string, uint256 _value) internal pure {
         logScientific(_string, _value);
     }
 
-    function addressWithEtherscanLink(string memory _string, address _address) public pure {
+    function addressWithEtherscanLink(string memory _string, address _address) internal pure {
         console.log(
             string(
                 abi.encodePacked(
@@ -102,7 +102,7 @@ library Logger {
         );
     }
 
-    function roles(string memory _string, address[] memory _roles) public pure {
+    function roles(string memory _string, address[] memory _roles) internal pure {
         console.log(string(abi.encodePacked(_string, " roles (", _roles.length.toString(), ")")));
         for (uint256 i = 0; i < _roles.length; i++) {
             console.log("\t-", _roles[i]);
